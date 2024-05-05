@@ -1,1 +1,0 @@
-var import_events = require("events");

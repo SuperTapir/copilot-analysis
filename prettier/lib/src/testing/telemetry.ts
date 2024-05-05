@@ -1,1 +1,0 @@
-var assert = Ns(require("assert"));
