@@ -1,0 +1,1 @@
+var import_events = require("events");,var _PostInsertionNotifier = class _PostInsertionNotifier extends lX.EventEmitter {};,__name(_PostInsertionNotifier, "PostInsertionNotifier");,var PostInsertionNotifier = _PostInsertionNotifier;

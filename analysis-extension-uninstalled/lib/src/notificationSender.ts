@@ -1,0 +1,1 @@
+var _NotificationSender = class _NotificationSender {};,__name(_NotificationSender, "NotificationSender");,var NotificationSender = _NotificationSender;

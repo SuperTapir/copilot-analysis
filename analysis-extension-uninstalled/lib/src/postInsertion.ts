@@ -1,0 +1,1 @@
+var postInsertionLogger = new Logger(1, "postInsertion");
