@@ -122,6 +122,38 @@ async function activate(context) {
   return new CopilotExtensionApi(ctx);
 }
 
+/**
+ * 此函数为给定的扩展注册 Ghost Text 支持。
+ * 它还会检查 'editor.inlineSuggest.enabled' 配置是否在全局或工作区中被禁用。
+ * 如果被禁用，将记录一条警告消息。
+ * 
+ * @param {Object} extensionCtx - 需要注册 Ghost Text 支持的扩展上下文。
+ */
+function registerGhostTextSupport(extensionCtx) {
+  try {
+    // 为扩展注册 Ghost Text 支持
+    registerGhostText(extensionCtx);
+
+    // 获取 'editor.inlineSuggest.enabled' 的配置
+    let inlineSuggestConfig = vscode.workspace.getConfiguration().inspect('editor.inlineSuggest.enabled');
+
+    // 检查配置是否在全局或工作区中被禁用
+    let isGlobalDisabled = inlineSuggestConfig?.globalValue === false;
+    let isWorkspaceDisabled = inlineSuggestConfig?.workspaceValue === false;
+
+    // 如果配置被禁用，记录一条警告消息
+    if (isGlobalDisabled || isWorkspaceDisabled) {
+      let warningMessage = 'editor.inlineSuggest.enabled is disabled. Enabling recommended to use Copilot.';
+      defaultLogger.warn(extensionCtx, warningMessage);
+    }
+  } catch (error) {
+    // 如果出现错误，使用遥测记录它
+    telemetryException(extensionCtx, error, 'registerGhostTextSupport');
+  }
+}
+
+
+
 export default {
   activate
 };
